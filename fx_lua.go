@@ -119,7 +119,6 @@ func (fx *Fx) runL(L *lua.LState) int {
 		}
 		xEnv.Errorf("%s file open succeed", fx.path)
 	})
-
 	return 0
 }
 
@@ -129,6 +128,10 @@ func (fx *Fx) onL(L *lua.LState) int {
 }
 
 func (fx *Fx) Index(L *lua.LState, key string) lua.LValue {
+
+	if fx.co == nil {
+		fx.co = xEnv.Clone(L)
+	}
 
 	switch key {
 

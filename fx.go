@@ -2,9 +2,9 @@ package tail
 
 import (
 	"bufio"
+	"github.com/vela-security/vela-audit"
 	"github.com/vela-security/vela-public/lua"
 	"github.com/vela-security/vela-public/pipe"
-	"github.com/vela-security/vela-audit"
 	"gopkg.in/tomb.v2"
 	"io"
 	"os"
@@ -247,6 +247,7 @@ func newFx(tom *tomb.Tomb, value string, handle func(line, error)) *Fx {
 		tom:    tom,
 		path:   path,
 		handle: handle,
+		on:     pipe.New(),
 		pipe:   pipe.New(),
 	}
 }

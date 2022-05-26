@@ -33,6 +33,7 @@ func (dx *Dx) pollL(L *lua.LState) int {
 
 func (dx *Dx) onL(L *lua.LState) int {
 	dx.on.Check(L, 1)
+	dx.co = xEnv.Clone(L)
 	return 0
 }
 

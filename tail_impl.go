@@ -44,7 +44,7 @@ func (t *tail) push(chunk []byte) {
 
 	wn, err := t.cfg.sdk.Write(chunk)
 	if err != nil {
-		xEnv.Errorf("%s output write error %v", err)
+		xEnv.Errorf("%s output write error %v", t.Name(), err)
 		return
 	}
 	atomic.AddUint64(&t.wn, uint64(wn))

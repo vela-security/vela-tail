@@ -2,10 +2,10 @@ package tail
 
 import (
 	"fmt"
+	audit "github.com/vela-security/vela-audit"
 	"github.com/vela-security/vela-public/grep"
 	"github.com/vela-security/vela-public/lua"
 	"github.com/vela-security/vela-public/pipe"
-	audit "github.com/vela-security/vela-audit"
 	"gopkg.in/tomb.v2"
 	"io/ioutil"
 	"path/filepath"
@@ -63,7 +63,6 @@ func (dx *Dx) Match(name string) bool {
 
 func (dx *Dx) onPipe(fx *Fx) {
 	dx.on.Do(fx, dx.co, func(err error) {
-
 		audit.Errorf("tail %s on call pipe error %v", dx.dir, err).
 			From(dx.co.CodeVM()).High().Put()
 	})
@@ -98,7 +97,7 @@ func (dx *Dx) readDir() error {
 		fx = dx.newFx(path)
 		dx.onPipe(fx)
 		cu[path] = fx
-		xEnv.Errorf("%s/%s dx new file succeed", dx.dir, dx.base)
+		xEnv.Infof("%s/%s dx new %s file succeed", dx.dir, dx.base, path)
 	}
 
 	//清除不存在
